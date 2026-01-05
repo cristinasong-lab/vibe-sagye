@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vibe Coding Camp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind 커스텀 (애플 느낌: 얇고 세련된 타이포 + 중간 톤 그레이)
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: [
+              "-apple-system",
+              "BlinkMacSystemFont",
+              "system-ui",
+              "Segoe UI",
+              "Roboto",
+              "Helvetica Neue",
+              "Arial",
+              "Noto Sans",
+              "sans-serif"
+            ],
+          },
+          colors: {
+            vibe: {
+              black: "#050505",
+              gray: "#323232",
+              light: "#f5f5f7",
+            },
+          },
+          boxShadow: {
+            soft: "0 24px 60px rgba(0,0,0,0.08)",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* 부드러운 스크롤 */
+    html {
+      scroll-behavior: smooth;
+    }
+    /* 얇은 스크롤바 (옵션) */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body class="bg-white text-vibe-black font-sans antialiased">
+
+  <!-- 상단 네비게이션 -->
+  <header class="sticky top-0 z-30 backdrop-blur bg-white/80 border-b border-black/5">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <!-- 로고 -->
+      <a href="#top" class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-xl bg-black"></span>
+        <span class="text-sm tracking-[0.18em] uppercase text-neutral-800">
+          Vibe Coding
+        </span>
+      </a>
+
+      <!-- 데스크톱 메뉴 -->
+      <nav class="hidden md:flex items-center gap-8 text-sm text-neutral-700">
+        <a href="#about" class="hover:text-black transition">캠프 소개</a>
+        <a href="#experience" class="hover:text-black transition">경험</a>
+        <a href="#schedule" class="hover:text-black transition">일정</a>
+        <a href="#faq" class="hover:text-black transition">FAQ</a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#apply"
+           class="text-sm text-neutral-700 hover:text-black transition">
+          문의하기
+        </a>
+        <a href="#apply"
+           class="inline-flex items-center justify-center rounded-full bg-black text-white text-sm px-4 py-2.5
+                  hover:bg-neutral-900 transition shadow-sm">
+          사전 신청하기
+        </a>
+      </div>
+
+      <!-- 모바일 메뉴 버튼 -->
+      <button id="mobileToggle"
+              class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-black/10">
+        <span class="sr-only">메뉴 열기</span>
+        <div class="space-y-1">
+          <span class="block w-4 h-[1.5px] bg-black"></span>
+          <span class="block w-4 h-[1.5px] bg-black"></span>
+        </div>
+      </button>
+    </div>
+
+    <!-- 모바일 메뉴 -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-black/5 bg-white/95 backdrop-blur">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3 text-sm">
+        <a href="#about" class="py-1" onclick="toggleMobile(false)">캠프 소개</a>
+        <a href="#experience" class="py-1" onclick="toggleMobile(false)">경험</a>
+        <a href="#schedule" class="py-1" onclick="toggleMobile(false)">일정</a>
+        <a href="#faq" class="py-1" onclick="toggleMobile(false)">FAQ</a>
+        <a href="#apply" class="py-2 font-medium" onclick="toggleMobile(false)">사전 신청하기</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="bg-vibe-light">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32 grid lg:grid-cols-2 gap-12 items-center">
+        <!-- 텍스트 -->
+        <div class="space-y-6">
+          <p class="text-xs tracking-[0.2em] uppercase text-neutral-500">
+            VIBE CODING CAMP · 2026
+          </p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-vibe-black">
+            코드보다<br class="sm:hidden" />
+            분위기에 먼저<br />
+            몰입하는 코딩 캠프.
+          </h1>
+          <p class="text-base sm:text-lg text-neutral-600 leading-relaxed max-w-xl">
+            시골 감성, 로우파이 음악, 따뜻한 커피.  
+            그리고 노트북 한 대.  
+            성과 대신 “집중의 즐거움”을 다시 떠올리게 해 줄,
+            작은 바이브 코딩 리트릿입니다.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#apply"
+               class="inline-flex items-center justify-center rounded-full bg-black text-white text-sm px-6 py-3
+                      hover:bg-neutral-900 transition shadow-soft">
+              사전 신청하러 가기
+            </a>
+            <a href="#about"
+               class="inline-flex items-center justify-center rounded-full border border-black/10 text-sm px-5 py-3
+                      text-neutral-800 hover:bg-white hover:border-black/20 transition">
+              캠프 소개 자세히 보기
+            </a>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 pt-4 text-xs text-neutral-500">
+            <span>· 소규모 인원 집중형</span>
+            <span>· 개발자 / 크리에이터 / 메이커</span>
+            <span>· 한국어 & 영어 가능</span>
+          </div>
+        </div>
+
+        <!-- 모크업 카드 -->
+        <div class="relative">
+          <div
+            class="w-full max-w-md lg:ml-auto rounded-[32px] bg-white shadow-soft border border-black/5 overflow-hidden">
+            <!-- 상단 바 -->
+            <div class="flex items-center justify-between px-5 py-3 border-b border-black/5 bg-neutral-50">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              </div>
+              <span class="text-[11px] text-neutral-500">
+                vibe-camp.js
+              </span>
+              <span class="text-[10px] text-neutral-400">
+                ● LIVE
+              </span>
+            </div>
+            <!-- 코드/에디터 영역 -->
+            <div class="px-5 py-5 bg-[#050816] text-[11px] sm:text-xs text-neutral-100 font-mono leading-relaxed">
+              <p class="text-emerald-300">const vibeCamp = () =&gt; &#123;</p>
+              <p class="pl-4 text-neutral-300">
+                const place = <span class="text-sky-300">'조용한 시골 마을'</span>;
+              </p>
+              <p class="pl-4 text-neutral-300">
+                const mood = [<span class="text-sky-300">'lo-fi'</span>, <span class="text-sky-300">'campfire'</span>, <span class="text-sky-300">'deep focus'</span>];
+              </p>
+              <p class="pl-4 text-neutral-300">
+                const people = <span class="text-sky-300">'코딩을 사랑하는 사람들'</span>;
+              </p>
+              <p class="pl-4 pt-2 text-neutral-300">
+                return <span class="text-emerald-300">new</span> Experience(place, mood, people);
+              </p>
+              <p class="text-emerald-300">&#125;;</p>
+              <p class="pt-4 text-neutral-400">// 올 겨울, 당신의 집중력을 리부트하세요.</p>
+            </div>
+            <!-- 하단 -->
+            <div class="px-5 py-3 bg-white flex items-center justify-between">
+              <span class="text-[11px] text-neutral-500">
+                Next session · 2026 Early Spring
+              </span>
+              <button
+                class="text-[11px] px-3 py-1.5 rounded-full bg-black text-white hover:bg-neutral-900 transition">
+                알림 신청
+              </button>
+            </div>
+          </div>
+
+          <!-- 작은 라벨 -->
+          <div
+            class="absolute -bottom-8 left-4 sm:left-10 rounded-2xl border border-black/5 bg-white px-4 py-3 shadow-soft text-xs text-neutral-600">
+            <div class="text-[10px] uppercase tracking-[0.18em] text-neutral-400 mb-1">for makers</div>
+            <div class="font-medium text-neutral-800">“출근이 아니라, 창작을 위한 코딩.”</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="border-t border-black/5 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 grid lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-1 space-y-4">
+          <p class="text-xs tracking-[0.2em] uppercase text-neutral-500">About</p>
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-vibe-black">
+            도심에서 잠시 벗어나,  
+            ‘코딩하는 나’에게 다시 집중하는 시간.
+          </h2>
+        </div>
+        <div class="lg:col-span-2 space-y-8 text-sm sm:text-base text-neutral-700 leading-relaxed">
+          <p>
+            Vibe Coding Camp는 빠른 결과를 강요하지 않습니다.  
+            대신, 조용한 자연 속에서 코드를 치고, 산책을 하고, 아이디어를 정리하고,
+            작은 프로젝트를 밀도 있게 쌓아가는 경험을 제공합니다.
+          </p>
+          <p>
+            개발자, 디자이너, 크리에이터, 사이드 프로젝트를 사랑하는 직장인까지,  
+            “잠깐 멈춰서 내가 만들고 싶은 것에만 집중하고 싶다”는 마음이라면 누구나 환영합니다.
+          </p>
+
+          <div class="grid sm:grid-cols-3 gap-6 pt-4">
+            <div>
+              <p class="text-xs uppercase tracking-[0.18em] text-neutral-500">Format</p>
+              <p class="mt-2 text-neutral-900">3~4일 집중 코딩 리트릿</p>
+              <p class="text-xs text-neutral-500 mt-1">소규모 인원(10~15명 내외)</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.18em] text-neutral-500">Location</p>
+              <p class="mt-2 text-neutral-900">시골 감성 숙소 + 코워킹 공간</p>
+              <p class="text-xs text-neutral-500 mt-1">자연과 와이파이가 모두 되는 곳</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.18em] text-neutral-500">Language</p>
+              <p class="mt-2 text-neutral-900">Korean · English</p>
+              <p class="text-xs text-neutral-500 mt-1">국적·레벨 상관없이 참여 가능</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE / 특징 -->
+    <section id="experience" class="border-t border-black/5 bg-vibe-light">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-10">
+          <div>
+            <p class="text-xs tracking-[0.2em] uppercase text-neutral-500">Experience</p>
+            <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-vibe-black">
+              이 캠프에서 얻게 될 것들
+            </h2>
+          </div>
+          <p class="text-sm text-neutral-600 max-w-md">
+            거창한 발표나 해커톤보다,  
+            “나만의 속도로 만들고 몰입하는 것”에 초점을 맞춥니다.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-3xl border border-black/5 p-6 sm:p-7 shadow-soft">
+            <h3 class="text-base font-semibold text-neutral-900 mb-2">
+              01. 깊은 몰입의 리듬
+            </h3>
+            <p class="text-sm text-neutral-600 leading-relaxed">
+              오전엔 조용한 딥 워크, 오후엔 산책과 아이디어 정리,
+              밤에는 캠프파이어 옆에서 코드 리뷰.  
+              하루의 모든 리듬이 ‘집중’과 ‘쉼’을 위해 설계됩니다.
+            </p>
+          </div>
+          <div class="bg-white rounded-3xl border border-black/5 p-6 sm:p-7 shadow-soft">
+            <h3 class="text-base font-semibold text-neutral-900 mb-2">
+              02. 사이드 프로젝트 부스트
+            </h3>
+            <p class="text-sm text-neutral-600 leading-relaxed">
+              미뤄둔 사이드 프로젝트, 만들고 싶었던 MVP,  
+              혹은 그저 연습용 토이 프로젝트까지.  
+              캠프 기간 동안 “적어도 여기까지”라는
+              명확한 마일스톤을 함께 설정해 줍니다.
+            </p>
+          </div>
+          <div class="bg-white rounded-3xl border border-black/5 p-6 sm:p-7 shadow-soft">
+            <h3 class="text-base font-semibold text-neutral-900 mb-2">
+              03. 비슷한 열정을 가진 사람들
+            </h3>
+            <p class="text-sm text-neutral-600 leading-relaxed">
+              직함, 회사 대신 “무엇을 만들고 싶은지”로 연결되는 사람들.  
+              부담 없는 속도로, 자연스럽게 네트워킹이 이어집니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE / 간단 일정 -->
+    <section id="schedule" class="border-t border-black/5 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-10">
+          <div>
+            <p class="text-xs tracking-[0.2em] uppercase text-neutral-500">Schedule</p>
+            <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-vibe-black">
+              하루의 흐름
+            </h2>
+          </div>
+          <p class="text-sm text-neutral-600 max-w-md">
+            실제 일정과 장소는 기수마다 조금씩 달라질 수 있지만,
+            기본적인 하루의 흐름은 아래와 비슷하게 흘러갑니다.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-[1.2fr,1fr] gap-10">
+          <div class="space-y-4">
+            <div class="flex gap-4 items-start p-4 rounded-2xl bg-vibe-light border border-black/5">
+              <p class="text-xs text-neutral-500 w-20">08:00 – 10:00</p>
+              <div>
+                <p class="text-sm font-medium text-neutral-900">조용한 모닝 루틴</p>
+                <p class="text-sm text-neutral-600 mt-1">느긋한 아침 산책과 커피, 노트 정리, 그날의 목표 설정</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start p-4 rounded-2xl border border-black/5">
+              <p class="text-xs text-neutral-500 w-20">10:00 – 13:00</p>
+              <div>
+                <p class="text-sm font-medium text-neutral-900">Deep Work 세션</p>
+                <p class="text-sm text-neutral-600 mt-1">각자 프로젝트에 집중하는 메인 코딩 타임</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start p-4 rounded-2xl border border-black/5">
+              <p class="text-xs text-neutral-500 w-20">14:30 – 17:00</p>
+              <div>
+                <p class="text-sm font-medium text-neutral-900">협업 & 공유</p>
+                <p class="text-sm text-neutral-600 mt-1">아이디어 피드백, 간단한 코드 리뷰, 미니 세션</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start p-4 rounded-2xl border border-black/5">
+              <p class="text-xs text-neutral-500 w-20">저녁</p>
+              <div>
+                <p class="text-sm font-medium text-neutral-900">캠프파이어 & 오프라인 모드</p>
+                <p class="text-sm text-neutral-600 mt-1">보드게임, 음악, 담소. 스크린에서 잠시 눈을 떼는 시간</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl bg-vibe-light border border-black/5 p-6 sm:p-7 flex flex-col justify-between">
+            <div>
+              <p class="text-xs tracking-[0.2em] uppercase text-neutral-500">Next Batch</p>
+              <h3 class="mt-3 text-xl font-semibold text-neutral-900">
+                2026 Early Spring · Waitlist
+              </h3>
+              <p class="mt-3 text-sm text-neutral-600">
+                정확한 날짜와 장소는 곧 공개됩니다.  
+                먼저 소식을 받고 싶은 분들은 아래 사전 알림 신청을 남겨 주세요.
+              </p>
+            </div>
+            <a href="#apply"
+               class="mt-6 inline-flex items-center justify-center rounded-full bg-black text-white text-sm px-5 py-3
+                      hover:bg-neutral-900 transition">
+              사전 알림 신청하기
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="border-t border-black/5 bg-vibe-light">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div class="mb-10">
+          <p class="text-xs tracking-[0.2em] uppercase text-neutral-500">FAQ</p>
+          <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-vibe-black">
+            자주 묻는 질문
+          </h2>
+        </div>
+
+        <div class="space-y-6 text-sm sm:text-base">
+          <div class="border-b border-black/5 pb-4">
+            <p class="font-medium text-neutral-900 mb-1">코딩 실력이 많이 부족해도 참여할 수 있나요?</p>
+            <p class="text-neutral-600">
+              네, 가능합니다. 캠프는 경쟁이나 평가보다 “집중하는 경험”에 초점을 두고 있어,
+              본인의 페이스에 맞게 프로젝트를 진행하시면 됩니다.
+            </p>
+          </div>
+          <div class="border-b border-black/5 pb-4">
+            <p class="font-medium text-neutral-900 mb-1">혼자 가도 괜찮을까요?</p>
+            <p class="text-neutral-600">
+              대부분 혼자 오시는 분들로 구성되며, 강제적인 네트워킹 세션 대신
+              자연스럽게 어울릴 수 있는 시간과 공간을 준비해 둡니다.
+            </p>
+          </div>
+          <div class="border-b border-black/5 pb-4">
+            <p class="font-medium text-neutral-900 mb-1">어떤 장비를 가져가야 하나요?</p>
+            <p class="text-neutral-600">
+              개인 노트북, 충전기, 이어폰 정도면 충분합니다.  
+              나머지 와이파이, 간단한 모니터, 화이트보드는 현장에서 준비되어 있습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLY / 폼 섹션 (간단) -->
+    <section id="apply" class="border-t border-black/5 bg-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div class="mb-8 text-center">
+          <p class="text-xs tracking-[0.2em] uppercase text-neutral-500">Join</p>
+          <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-vibe-black">
+            사전 신청 & 문의 남기기
+          </h2>
+          <p class="mt-3 text-sm text-neutral-600 max-w-xl mx-auto">
+            아직 확정되지 않은 부분이 많지만,  
+            관심이 있다면 가볍게 정보를 남겨 주세요.  
+            다음 기수 모집 소식을 가장 먼저 보내드립니다.
+          </p>
+        </div>
+
+        <!-- 실제로는 form action / 처리 로직을 연결해서 사용 -->
+        <form class="space-y-5 max-w-xl mx-auto">
+          <div>
+            <label class="block text-xs font-medium text-neutral-700 mb-1.5">이름</label>
+            <input type="text" required
+                   class="w-full border border-black/10 rounded-2xl px-4 py-3 text-sm
+                          focus:outline-none focus:ring-2 focus:ring-black focus:border-black/0" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-neutral-700 mb-1.5">이메일</label>
+            <input type="email" required
+                   class="w-full border border-black/10 rounded-2xl px-4 py-3 text-sm
+                          focus:outline-none focus:ring-2 focus:ring-black focus:border-black/0" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-neutral-700 mb-1.5">현재 하시는 일 / 관심 분야</label>
+            <input type="text"
+                   class="w-full border border-black/10 rounded-2xl px-4 py-3 text-sm
+                          focus:outline-none focus:ring-2 focus:ring-black focus:border-black/0"
+                   placeholder="예: 프론트엔드 개발자, 사이드 프로젝트 준비 중 등" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-neutral-700 mb-1.5">참여 이유 / 기대하는 점 (선택)</label>
+            <textarea rows="4"
+                      class="w-full border border-black/10 rounded-2xl px-4 py-3 text-sm
+                             focus:outline-none focus:ring-2 focus:ring-black focus:border-black/0"
+                      placeholder="어떤 이유로 캠프에 관심을 가지게 되셨나요?"></textarea>
+          </div>
+          <div class="flex items-start gap-2 text-xs text-neutral-600">
+            <input type="checkbox" id="agree"
+                   class="mt-1 rounded border-black/20 text-black focus:ring-black" />
+            <label for="agree">
+              추후 캠프 소식 및 안내 메일 수신에 동의합니다. (언제든지 해지 가능)
+            </label>
+          </div>
+          <div class="pt-2">
+            <button type="submit"
+                    class="w-full inline-flex items-center justify-center rounded-full bg-black text-white text-sm px-6 py-3.5
+                           hover:bg-neutral-900 transition">
+              사전 신청 완료하기
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-black/5 bg-vibe-light">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-neutral-500">
+        © 2026 Vibe Coding Camp. All rights reserved.
+      </p>
+      <div class="flex gap-4 text-xs text-neutral-500">
+        <a href="#top" class="hover:text-black transition">맨 위로</a>
+        <span>·</span>
+        <span>Made with focus &amp; coffee.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function toggleMobile(force) {
+      if (typeof force === 'boolean') {
+        mobileMenu.classList.toggle('hidden', !force);
+        return;
+      }
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    toggleBtn.addEventListener('click', () => toggleMobile());
+  </script>
+</body>
+</html>
